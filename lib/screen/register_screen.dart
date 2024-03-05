@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:riot_sync/screen/custom_clipper.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -105,7 +106,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           const SizedBox(height: 20),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'login_page');
+            },
             child: const Text(
               "Ya tengo una cuenta",
               style: TextStyle(

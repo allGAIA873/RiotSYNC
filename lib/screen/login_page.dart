@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'custom_clipper.dart';
-import 'package:riot_sync/screen/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +11,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController nameController;
   late TextEditingController passwordController;
+  bool nameError = false;
+  bool passwordError = false;
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(children: [
           SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.7,
+            height: MediaQuery.of(context).size.height * 0.7,
             width: double.infinity,
             child: _buildInputFields(),
           ),
@@ -48,21 +49,22 @@ class _LoginPageState extends State<LoginPage> {
       clipper: CustomClipperWidget(),
       child: Container(
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          colors: [
-            Colors.red,
-            Color.fromARGB(155, 180, 0, 0),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        )),
+          gradient: LinearGradient(
+            colors: [
+              Colors.red,
+              Color.fromARGB(155, 180, 0, 0),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
               const SizedBox(height: 60),
               const Text(
-                "Iniciar sesion",
+                "Iniciar sesión",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 35,
@@ -72,20 +74,29 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 60),
               _buildTextField(
-                  nameController, Icons.person_outline, "Nombre de usuario"),
+                nameController,
+                Icons.person_outline,
+                "Nombre de usuario",
+                error: nameError,
+              ),
+              if (nameError)
+                const Text('Por favor, ingresa tu nombre de usuario.',
+                    style: TextStyle(color: Colors.black)),
               const SizedBox(height: 20),
               _buildTextField(
-                  passwordController, Icons.info_outline, "Contraseña",
-                  isPassword: true),
+                passwordController,
+                Icons.info_outline,
+                "Contraseña",
+                isPassword: true,
+                error: passwordError,
+              ),
+              if (passwordError)
+                const Text('Por favor, ingresa tu contraseña.',
+                    style: TextStyle(color: Colors.black)),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                  );
-                },
-                child: const Text("Iniciar sesion"),
+                onPressed: _validateFields,
+                child: const Text("Iniciar sesión"),
               ),
               const SizedBox(height: 20),
               TextButton(
@@ -109,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         const Text(
-          "O inicia sesion con",
+          "O inicia sesión con",
           style: TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 10),
@@ -131,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildTextField(
       TextEditingController controller, IconData icon, String hint,
-      {bool isPassword = false}) {
+      {bool isPassword = false, bool error = false}) {
     return TextField(
       controller: controller,
       style: const TextStyle(color: Colors.white),
@@ -145,8 +156,33 @@ class _LoginPageState extends State<LoginPage> {
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
         border: const OutlineInputBorder(borderSide: BorderSide.none),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red),
+        ),
       ),
       obscureText: isPassword,
+      onChanged: (_) {
+        if (error) {
+          setState(() {
+            if (controller == nameController) {
+              nameError = false;
+            } else if (controller == passwordController) {
+              passwordError = false;
+            }
+          });
+        }
+      },
     );
+  }
+
+  void _validateFields() {
+    setState(() {
+      nameError = nameController.text.isEmpty;
+      passwordError = passwordController.text.isEmpty;
+    });
+
+    if (!nameError && !passwordError) {
+      Navigator.pushNamed(context, 'home_screen');
+    }
   }
 }

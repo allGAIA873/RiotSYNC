@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:riot_sync/screen/juegos-screen/juegos_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<BottomNavigationBarItem> _bottomNavigationBarItems = [
@@ -23,9 +22,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: Text('Noticias'),
-      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,10 +47,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.black,
         onTap: (index) {
           if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => JuegosScreen()),
-            );
+            Navigator.pushNamed(context, 'juegos_screen');
           } else if (index == 2) {
             // Navegar a la pantalla de mi perfil
           }
@@ -64,25 +57,28 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Noticias',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.only(top: 40.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            'Noticias',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.tune,
-            color: Colors.white,
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.tune,
+              color: Colors.white,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -111,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -120,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     subtitle,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                     ),
@@ -128,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: 5),
                   Text(
                     date,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                     ),
@@ -156,14 +152,14 @@ class HomeScreen extends StatelessWidget {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 5),
-            Text(
+            const Text(
               'ASÍ LO JUEGO',
               style: TextStyle(
                 color: Colors.white,
