@@ -25,7 +25,15 @@ class NavBarScreen extends StatelessWidget {
         ),
       ],
       currentIndex: currentIndex,
-      onTap: onTap,
+      onTap: (index) {
+        if (index == 0) {
+          Navigator.pushNamed(context, 'home_screen');
+        } else if (index == 1) {
+          Navigator.pushNamed(context, 'juegos_screen');
+        } else if (index == 2) {
+          Navigator.pushNamed(context, 'perfil_screen');
+        }
+      },
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey[400],
       backgroundColor: Colors.black,
