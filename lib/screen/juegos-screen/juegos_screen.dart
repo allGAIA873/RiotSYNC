@@ -4,7 +4,7 @@ class JuegosScreen extends StatefulWidget {
   const JuegosScreen({super.key});
 
   @override
-  _JuegosScreenState createState() => _JuegosScreenState();
+  State<JuegosScreen> createState() => _JuegosScreenState();
 }
 
 class _JuegosScreenState extends State<JuegosScreen> {

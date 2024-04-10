@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:riot_sync/screen/navbar.dart';
 
-class PerfilScreen extends StatelessWidget {
-  const PerfilScreen({Key? key}) : super(key: key);
+class PerfilScreen extends StatefulWidget {
+  const PerfilScreen({super.key});
 
+  @override
+  State<PerfilScreen> createState() => _PerfilScreenState();
+}
+
+class _PerfilScreenState extends State<PerfilScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,10 +76,6 @@ class PerfilScreen extends StatelessWidget {
             const SizedBox(height: 10), // Position 17: Below the Text
           ],
         ),
-      ),
-      bottomNavigationBar: NavBarScreen(
-        currentIndex: 0,
-        onTap: (int index) {},
       ),
     );
   }
