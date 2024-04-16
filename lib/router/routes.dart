@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:riot_sync/screen/juegos-screen/form/edit_juego_screen.dart';
 import 'package:riot_sync/screen/perfil-screen/perfil.dart';
 import '../screen/screens.dart';
 import 'package:riot_sync/model/menuOption.dart';
@@ -20,5 +21,6 @@ class AppRoutes {
     'juegos_screen': (BuildContext context) => const JuegosScreen(),
     'perfil_screen': (BuildContext context) => const PerfilScreen(),
     'add_game_screen': (BuildContext context) => AddGameScreen(),
+    'edit_game_screen': (BuildContext context) => EditGameScreen(),
   };
 }

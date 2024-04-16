@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:riot_sync/services/game_service.dart';
 
-class AddGameScreen extends StatefulWidget {
+class EditGameScreen extends StatefulWidget {
   @override
-  _AddGameScreenState createState() => _AddGameScreenState();
+  _EditGameScreenState createState() => _EditGameScreenState();
 }
 
-class _AddGameScreenState extends State<AddGameScreen> {
+class _EditGameScreenState extends State<EditGameScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController juegoController = TextEditingController(text: "");
+    TextEditingController juegoController = TextEditingController(text: "");
 
   @override
 
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    juegoController.text = arguments['juego'];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Agregar Juego',
+          'Editar Juego',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
@@ -86,7 +89,8 @@ class _AddGameScreenState extends State<AddGameScreen> {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
-                await addJuego(juegoController.text).then((_) {
+                await updateJuego(arguments['uid'], juegoController.text)
+                    .then((_) {
                   Navigator.pop(context);
                 });
               },
@@ -97,7 +101,7 @@ class _AddGameScreenState extends State<AddGameScreen> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Agregar'),
+              child: const Text('Editar'),
             ),
           ],
         ),
